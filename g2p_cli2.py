@@ -699,12 +699,14 @@ class Translator:
         return [("punct", g[0]) if len(g) == 1 and not g[0][0].isalpha() else ("word", g) for g in groups]
 
     def reassemble(self, original_text, shavian_words):
-        tokens = re.findall(r"[A-Za-z\u2019\u2018'']+|[^\w\s]+|\s+", original_text)
+        tokens = re.findall(r"[A-Za-z\u2019\u2018'']+|\d+|[^\w\s]+|\s+", original_text)
         result, wi = [], 0
         for tok in tokens:
             if tok[0].isalpha() and wi < len(shavian_words):
                 result.append(shavian_words[wi])
                 wi += 1
+            elif tok.isdigit():
+                result.append(f"‹{tok}›")
             else:
                 result.append(tok)
         return "".join(result)
@@ -724,7 +726,7 @@ class Translator:
         cmu = cmudict.dict()
 
         # --- Pre-processing: Expand unknown contractions ---
-        raw_tokens = re.findall(r"[A-Za-z\u2019\u2018'']+|[^\w\s]+|\s+", text)
+        raw_tokens = re.findall(r"[A-Za-z\u2019\u2018'']+|\d+|[^\w\s]+|\s+", text)
         expanded_tokens = []
         for tok in raw_tokens:
             if tok[0].isalpha():
@@ -739,10 +741,13 @@ class Translator:
             expanded_tokens.append(tok)
 
         expanded_text = "".join(expanded_tokens)
-        phonemes = self.lexicon.g2p(expanded_text)
+        
+        # Do not pass digits to g2p, or it expands them to words
+        g2p_text = re.sub(r'\d+', '', expanded_text)
+        phonemes = self.lexicon.g2p(g2p_text)
         tagged_groups = self.segment_g2p(phonemes)
 
-        orig_tokens = re.findall(r"[A-Za-z\u2019\u2018'']+|[^\w\s]+", expanded_text)
+        orig_tokens = re.findall(r"[A-Za-z\u2019\u2018'']+|\d+|[^\w\s]+", expanded_text)
         orig_words = [t for t in orig_tokens if t[0].isalpha()]
 
         shavian_words, diagnostics, wi = [], [], 0

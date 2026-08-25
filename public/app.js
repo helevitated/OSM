@@ -113,7 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const end = sourceText.selectionEnd;
             const v = sourceText.value;
 
-            if (action === 'space') {
+            if (action === 'numpad') {
+                const val = prompt('Enter a number to insert (e.g. 1984):');
+                if (val && /^\d+$/.test(val)) {
+                    const char = `‹${val}›`;
+                    sourceText.value = v.substring(0, s) + char + v.substring(end);
+                    sourceText.selectionStart = sourceText.selectionEnd = s + char.length;
+                }
+                sourceText.focus();
+            } else if (action === 'space') {
                 sourceText.value = v.substring(0, s) + ' ' + v.substring(end);
                 sourceText.selectionStart = sourceText.selectionEnd = s + 1;
                 sourceText.focus();
@@ -162,6 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             targetText.textContent = data.translated;
+            if (window.renderCistercianMarkers) {
+                window.renderCistercianMarkers(targetText);
+            }
 
             if (data.diagnostics?.length) {
                 diagContainer.style.display = 'block';

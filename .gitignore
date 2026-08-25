@@ -1,0 +1,27 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+
+# Editor lock files
+.~lock.*
+
+# Model caches
+*.safetensors
+.cache/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Large glyph scouting databases (reference only, not needed to run)
+osm_glyph_database_massive.csv
+osm_glyph_database_massive.ods
+osm_glyph_database_extended.csv
+
+# Prior AI conversation artifacts
+brainfiles/

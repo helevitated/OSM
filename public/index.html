@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="description" content="OSM — a neural phonetic translation engine for Optimized Shavian Mode.">
+    <title>OSM | Optimized Shavian Mode</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <h1>OSM</h1>
+            </div>
+            <p class="osm-hero"><span id="hero-osm">···</span></p>
+            <p class="subtitle">Neural Translation Engine</p>
+        </header>
+
+        <main class="translator-container">
+            <div class="controls-bar">
+                <button id="toggle-direction" class="direction-toggle" aria-label="Switch translation direction">
+                    <span id="dir-label">English → OSM</span>
+                    <svg viewBox="0 0 24 24" class="swap-icon" aria-hidden="true">
+                        <path fill="currentColor" d="M7.5 3L3 7.5h3v7h3v-7h3L7.5 3zm9 4v7h-3l4.5 4.5L22.5 14h-3V7h-3z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="input-area box-panel">
+                <textarea id="source-text" placeholder="Enter text to translate…" spellcheck="false"></textarea>
+
+                <!-- Virtual Keyboard (visible only in OSM→English mode) -->
+                <div id="osm-keyboard" class="virtual-keyboard" style="display: none;">
+                    <div id="dynamic-keys-container"></div>
+                    <div class="keyboard-row keyboard-actions">
+                        <button class="key action-key" data-action="space">Space</button>
+                        <button class="key action-key" data-action="backspace">⌫</button>
+                        <button class="key action-key action-enter" data-action="enter">Translate ↵</button>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="clear-btn" class="secondary-btn" aria-label="Reset all fields">Reset</button>
+                    <button id="translate-btn" class="primary-btn">
+                        <span>Translate</span>
+                        <div class="loader" id="loading-spinner"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="output-area box-panel">
+                <div class="output-header">
+                    <h3>Result</h3>
+                    <button id="copy-btn" class="icon-btn" title="Copy to clipboard" aria-label="Copy result">
+                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg>
+                    </button>
+                </div>
+                <div id="target-text" class="output-content"></div>
+            </div>
+
+            <div class="diagnostics-area" id="diagnostics-container">
+                <h4>AI Disambiguation Diagnostics</h4>
+                <ul id="diagnostics-list"></ul>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

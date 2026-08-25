@@ -1,0 +1,154 @@
+Glyphs must exist in the Google Noto font set.
+
+1. The Vertical Axis: Voicing
+Unvoiced Consonants: Sits on the baseline, has at least one ascender (no descenders).
+Voiced Consonants: Has at least one descender (no ascenders).
+Vowels: Stays entirely within the x-height (no ascenders, no descenders).
+
+2. The Horizontal Axis: Place of Articulation
+Front (Lips/Teeth): Asymmetrical, visually heavier on the left, points left.
+Middle (Alveolar Ridge): Left-to-right symmetry.
+Mid-Back (Postalveolar): Slightly asymmetrical, pointing mildly to the right.
+Back (Palate/Velum/Glottis): Asymmetrical, visually heavier on the right, points right.
+
+3. The Shape Axis: Manner of Articulation
+Stops / Fricatives / Affricates: Kiki (sharp, angular, rigid). Stops are the most Kiki.
+Nasals / Liquids / Glides: Bouba (rounded, curved, fluid). Nasals are the most Bouba.
+
+4. The Vowel Space
+Weight: All vowel glyphs are visually "bottom-heavy" (anchored/grounded), representing their fully voiced nature.
+Focus: The visual focal point (an apex, a dot, or a point) maps to the vowel's coordinate on the IPA chart.
+R-Coloring: Indicated by a terminal right-facing curl ) within the x-height.
+
+
+
+
+What about h? It seems unvoiced. Should it have an ascender or descender?
+Lateral consonants are associated with the concept of the tongue!
+
+
+
+**On translation from WCE to OSM**
+
+I. WCE -> OSM is often many-to-one (the easy translation direction)
+    A. Vowel mergers in OSM
+        1. OSM treats ə and ʌ as a single sound, close to schwa, as the difference isn't significant in Western Canadian English (WCE).
+        2. Because WCE features the cot-caught merger ɒ, ɑː, and ɔː are treated as a single sound in OSM.
+        3. WCE is yod dropping. So, ju(ː) and variants have no place in OSM.
+    B. Consonant mergers in OSM
+        1. The wine-whine merger
+        2. Yod dropping also applies to many consonant phonemes (but OSM has none)
+
+
+II. OSM -> WCE is often one-to-many (the hard translation direction)
+
+III. Design Principles
+
+Get Antigravity to search Unicode for candidates.
+
+Design Influences:
+
+Kiki Bouba
+Typographyc Aesthetics
+
+Phonoaesthetics
+Acquisition Order
+Place and Method of Articulation
+Ease and Speed of both Writing and Speed of Reading
+
+Special consideration should be given to all glyphs that represent sounds that are combined:
+
+a. Rhotic vowels
+b. Dipthongs
+c. Affricatives
+
+Typographically speaking:
+
+    A. Unvoiced and unvoiced phonemes are indicated by a glyph's relationship to the baseline:
+        1. Glyphs for unvoiced consonants are entirely above the baseline and have at least one ascender.
+        2. Glyphs for voiced consonants extend below the baseline (at least one descender) and have no ascenders.
+        3. Glyphs for vowels, excepting r-colored vowel glyphs, have neither ascenders nor descenders.
+
+I am interested in expanding the aesthetic choice of glyphs beyond Shavian letters (however, I suspect that some of them are perfect for my project... even if some are currently serving the wrong roles). The reason is because, in addition to using ascenders and descenders as a way to identify consonants and associating voiced phonemes with the area around the baseline (i.e. "down"), I would like to add additional guidelines and suggest that you are free to consider any glyph that Google Noto can render. For this reason, you should also re-consider my original rules to see if there are better options in Noto. They were:
+
+1. Glyphs for unvoiced consonants are entirely above the baseline and have at least one ascender.
+2. Glyphs for voiced consonants extend below the baseline (at least one descender) and have no ascenders.
+3. Glyphs for vowels, excepting r-colored vowel glyphs, have neither ascenders nor descenders.
+
+Here are my additional guidelines:
+
+About consonants:
+a. Bilabial, labio-dental, and dental glyphs should "point toward the left" and be left-to-right asymmetrical with more glyph on the left (I suppose the numbers "7" and "9" are examples of such glyphs).
+b. Alveolar consonants should have left-to-right symmetry.
+c. Palatal, velar, and glottal glyphs should "point toward the right" and be left-to-right asymmetrical with more glyph on the right (I suppose "P" and "b" are examples of such glyphs).
+d. Consonants that are stops, fricatives or affricatives should have a more kiki than bouba appearance (with stops being the most kiki).
+e. Consonants that are glides, nasals, or liquids should have a more bouba than kiki appearance (with nasals being the most bouba). 
+
+About vowels:
+Within the x-height, the highlight or focus of the glyph should approximate the vowel's position on the IPA close-to-open/front-to-back vowel chart . It seems appropriate for all vowel glyphs to be "bottom heavy" because they are all voiced.
+
+Ensure there are no internally inconsistent implications in my set of guidelines.
+
+
+Numbered responses:
+1. Either resolution is fine so long as the glyph for /w/ seems closely related to the glyph for /j/.
+2. Why not "slightly to the right", then?
+3. I see the glyph for /r/ as something like ")" so that r-colored vowels can have it as a terminal curl. In this role, it's fine if the /r/ fails to have a descender.
+4. Your resolution is what I meant in the first place.
+5. You're right. It was a bad example.
+6. Yes. I meant "has no descenders".
+
+ 
+OSM is better (for me) because:
+
+1. Optimized for WCE
+2. Orthography is related to articulation
+
+What criteria could be used to evaluate/compare?
+
+        
+3. Glyphs for vowels are 
+
+
+
+
+
+
+b	buy, cab
+d	dye, cad, ladder[3]
+dʒ	jive, badge
+ð	thy, breathe, father
+f	find, leaf
+ɡ	guy, bag
+h	high, ahead
+j[	yes, hallelujah
+k	kind, sky, crack
+l	lie, ply, gal[7]
+m	my, smile, cam
+n	nigh, snide, can
+ŋ	sang, sink, singer
+p	pie, spy, cap
+r	rye, try, very
+s	sigh, mass
+ʃ	shy, cash, emotion
+t	tie, sty, cat, latter[3]
+tʃ	China, catch
+θ	thigh, path
+θj	enthuse[4]
+v	vie, leave
+w	wine, swine
+z	zoo, has
+zj	Zeus, resume[4]
+ʒ	pleasure, beige[9]
+Vowels
+
+
+
+
+
+
+
+
+
+
+

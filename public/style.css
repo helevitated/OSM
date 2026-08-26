@@ -348,39 +348,6 @@ textarea::placeholder {
     height: 20px;
 }
 
-/* ── Diagnostics ───────────────────────────────────────────────────────── */
-
-.diagnostics-area {
-    margin-top: 1rem;
-    display: none;
-    background: var(--bg-panel);
-    border: 1px dashed var(--accent);
-    border-radius: 12px;
-    padding: 1.5rem;
-    animation: fadeIn 0.5s ease;
-}
-
-.diagnostics-area h4 {
-    color: var(--accent);
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-#diagnostics-list {
-    list-style: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-#diagnostics-list li {
-    margin-bottom: 0.5rem;
-    padding-left: 1rem;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
-}
-
 /* ── Loader ────────────────────────────────────────────────────────────── */
 
 .loader {

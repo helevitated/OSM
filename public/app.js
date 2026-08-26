@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyBtn        = document.getElementById('copy-btn');
     const spinner        = document.getElementById('loading-spinner');
     const btnText        = translateBtn.querySelector('span');
-    const diagContainer  = document.getElementById('diagnostics-container');
-    const diagList       = document.getElementById('diagnostics-list');
     const virtualKB      = document.getElementById('osm-keyboard');
     const dynamicKeys    = document.getElementById('dynamic-keys-container');
     const heroSpan       = document.getElementById('hero-osm');
@@ -72,14 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const temp = sourceText.value;
         sourceText.value = targetText.textContent;
         targetText.textContent = temp;
-        diagContainer.style.display = 'none';
     });
 
     // ── Reset ────────────────────────────────────────────────────────────
     clearBtn.addEventListener('click', () => {
         sourceText.value = '';
         targetText.textContent = '';
-        diagContainer.style.display = 'none';
         sourceText.focus();
     });
 
@@ -159,8 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnText.style.display = 'none';
         spinner.style.display = 'block';
         targetText.textContent = 'Translating…';
-        diagContainer.style.display = 'none';
-        diagList.innerHTML = '';
 
         try {
             const res = await fetch('/api/translate', {
@@ -172,15 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
             targetText.textContent = data.translated;
             if (window.renderCistercianMarkers) {
                 window.renderCistercianMarkers(targetText);
-            }
-
-            if (data.diagnostics?.length) {
-                diagContainer.style.display = 'block';
-                data.diagnostics.forEach(note => {
-                    const li = document.createElement('li');
-                    li.textContent = note.trim();
-                    diagList.appendChild(li);
-                });
             }
         } catch (err) {
             targetText.textContent = 'Error connecting to the translation engine.';

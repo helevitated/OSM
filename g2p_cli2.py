@@ -723,7 +723,7 @@ class Translator:
         return None  # Fall back to g2p
 
     def execute_forward(self, text):
-        cmu = cmudict.dict()
+        cmu = self.lexicon.cmu
 
         # --- Pre-processing: Expand unknown contractions ---
         raw_tokens = re.findall(r"[A-Za-z\u2019\u2018'']+|\d+|[^\w\s]+|\s+", text)

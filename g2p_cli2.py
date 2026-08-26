@@ -250,6 +250,13 @@ class PhoneticLexicon:
         self._reverse_cmu = None
         self._g2p = None
         self._bigrams = None
+        self._cmu = None
+
+    @property
+    def cmu(self):
+        if self._cmu is None:
+            self._cmu = cmudict.dict()
+        return self._cmu
 
     @property
     def g2p(self):

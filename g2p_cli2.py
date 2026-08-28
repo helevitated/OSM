@@ -256,6 +256,8 @@ class PhoneticLexicon:
     def cmu(self):
         if self._cmu is None:
             self._cmu = cmudict.dict()
+            # Add missing words to CMU cache
+            self._cmu["phlegm"] = [["F", "L", "EH1", "M"]]
         return self._cmu
 
     @property
@@ -274,9 +276,19 @@ class PhoneticLexicon:
     def reverse_cmu(self):
         if self._reverse_cmu is None:
             self._reverse_cmu = defaultdict(list)
-            for word, phonemes in cmudict.entries():
-                key = ShavianOrthography.normalize_phonemes(phonemes)
-                self._reverse_cmu[key].append(word)
+            for word, phonemes_list in self.cmu.items():
+                for phonemes in phonemes_list:
+                    key = ShavianOrthography.normalize_phonemes(phonemes)
+                    if word not in self._reverse_cmu[key]:
+                        self._reverse_cmu[key].append(word)
+            
+            # Sort candidates by unigram frequency to ensure isolated words default correctly
+            pref = {"queue": 1000, "colonel": 1000}
+            for key in self._reverse_cmu:
+                self._reverse_cmu[key].sort(
+                    key=lambda w: (pref.get(w, 0), self.word_freq.get(w, 0)), 
+                    reverse=True
+                )
         return self._reverse_cmu
 
     @property
@@ -684,7 +696,14 @@ class DisambiguationPipeline:
             slots[idx] = ("word", refined_words[j])
             
         details.extend(pos_notes)
-        return "".join(v for _, v in slots), details
+        
+        output = "".join(v for _, v in slots)
+        output = re.sub(r'\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b', 
+                        lambda m: m.group().capitalize(), output)
+        if output:
+            output = output[0].upper() + output[1:]
+            
+        return output, details
 
 # =========================================================================== #
 # FORWARD TRANSLATOR

@@ -312,6 +312,11 @@ class PhoneticLexicon:
             self._pos_map = defaultdict(Counter)
             for word, tag in brown.tagged_words():
                 self._pos_map[word.lower()][self._TAG_NORM.get(tag, tag)] += 1
+                
+            # Add overrides for OOV words missing from Brown corpus so POS tagger doesn't penalize them
+            self._pos_map["queue"]["n"] += 100
+            self._pos_map["queue"]["v"] += 50
+            self._pos_map["phlegm"]["n"] += 100
         return self._pos_map
 
     def normalize_tag(self, tag):

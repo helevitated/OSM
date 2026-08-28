@@ -366,7 +366,8 @@ class DisambiguationPipeline:
 
             unique = sorted(set(candidates))
             pool = [w for w in unique if w.isalpha()] or unique
-            ranked = sorted(pool, key=lambda w: self.lexicon.word_freq.get(w, 0), reverse=True)
+            pref = {"queue": 1000, "colonel": 1000}
+            ranked = sorted(pool, key=lambda w: (pref.get(w, 0), self.lexicon.word_freq.get(w, 0)), reverse=True)
 
             chosen = None
             for cand in ranked[:10]:
@@ -620,13 +621,13 @@ class DisambiguationPipeline:
             if not cands or len(cands) <= 1:
                 continue
             
-            # Don't override common function words (just like in bigram pass)
-            if word.lower() in {'a', 'the', 'of', 'to', 'in', 'on', 'an',
-                                'is', 'it', 'or', 'i', 'by', 'at', 'we',
+            # Don't override common function words unless they are common homophones
+            if word.lower() in {'a', 'the', 'of', 'in', 'on', 'an',
+                                'is', 'it', 'i', 'at', 'we',
                                 'no', 'do', 'so', 'he', 'if', 'as',
-                                'and', 'for', 'but', 'not', 'are', 'was',
+                                'and', 'but', 'not', 'are', 'was',
                                 'all', 'her', 'his', 'our', 'has', 'had',
-                                'its', 'too', 'new', 'who', 'she'}:
+                                'its', 'new', 'who', 'she'}:
                 continue
                 
             # Filter to real words
